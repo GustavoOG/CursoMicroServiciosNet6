@@ -2,13 +2,17 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 using Servicios.api.Seguridad.Core.Application;
 using Servicios.api.Seguridad.Core.Entities;
 using Servicios.api.Seguridad.Core.JwtLogic;
 using Servicios.api.Seguridad.Core.Persistence;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +33,20 @@ builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 builder.Services.AddMediatR(typeof(Register.UsuarioRegisterCommand).Assembly);
 builder.Services.AddAutoMapper(typeof(Register.UsuarioRegisterHandler));
 builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
+builder.Services.AddScoped<IUsuarioSesion, UsuarioSesion>();
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SjdCAnYwalCRTE7EAdgFQh5N0xN0oJvF"));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = key,
+        ValidateAudience = false,
+        ValidateIssuer = false
+    };
+});
 
 // Add services to the container.
 //depreciado
@@ -45,6 +63,15 @@ builder.Services.AddFluentValidationClientsideAdapters(); // for client side
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Habiitamos cors
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsRule", rule =>
+    {
+        rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,8 +81,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsRule");
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllers();
 
 

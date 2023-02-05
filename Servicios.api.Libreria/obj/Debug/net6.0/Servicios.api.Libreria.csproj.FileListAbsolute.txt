@@ -5,6 +5,8 @@ D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\
 D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\Servicios.api.Libreria.runtimeconfig.json
 D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\Servicios.api.Libreria.dll
 D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\Servicios.api.Libreria.pdb
+D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\AWSSDK.Core.dll
+D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\AWSSDK.SecurityToken.dll
 D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\DnsClient.dll
 D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\Microsoft.OpenApi.dll
 D:\Proyectos\CursoMicroServicios\Microservices\Servicios.api.Libreria\bin\Debug\net6.0\MongoDB.Bson.dll

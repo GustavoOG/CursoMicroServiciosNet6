@@ -52,9 +52,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsRule");
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
